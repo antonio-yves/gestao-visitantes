@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 from decouple import config, Csv
@@ -24,7 +25,9 @@ INSTALLED_APPS = [
     # Third Apps
     'corsheaders',
     'drf_yasg',
+    'imagekit',
     'rest_framework',
+    'storages',
 
 
     # Application Apps
@@ -62,6 +65,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'gestao_visitantes.wsgi.application'
+
+AUTH_USER_MODEL = 'authentication.User'
 
 
 # Database
@@ -105,8 +110,24 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 
-STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_URL = "static/"
 
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Storage Config - AWS
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
+
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage",
+    }
+}

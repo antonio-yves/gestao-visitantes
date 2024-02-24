@@ -11,6 +11,12 @@ psycopg = {extras = ["pool", "binary"], version = "*"}
 django-cors-headers = "*"
 drf-yasg = "*"
 setuptools = "*"
+pyotp = "*"
+cryptography = "*"
+djangorestframework-simplejwt = "*"
+pillow = "*"
+django-imagekit = "*"
+django-storages = {extras = ["s3"], version = "*"}
 
 [dev-packages]
 
